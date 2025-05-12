@@ -1,0 +1,42 @@
+version: "3.7"
+
+services:
+
+  nginx:
+    image: nginx:latest
+    ports:
+      - "80:80"
+    volumes:
+      - /home/ec2-user/nginx.conf:/etc/nginx/nginx.conf
+    depends_on:
+      - app
+      - app-2
+
+  app:
+    image: oneiran/getting-started:latest
+    expose:
+      - "3000"
+    environment:
+      MYSQL_HOST: mysql
+      MYSQL_USER: root
+      MYSQL_PASSWORD: secret
+      MYSQL_DB: todos
+
+  app-2:
+    image: oneiran/getting-started:latest
+    expose:
+      - "3000"
+    environment:
+      MYSQL_HOST: mysql
+      MYSQL_USER: root
+      MYSQL_PASSWORD: secret
+      MYSQL_DB: todos
+
+  mysql:
+    image: mysql:5.7
+    volumes:
+      - ./todo-mysql-data:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: secret
+      MYSQL_DATABASE: todos
+

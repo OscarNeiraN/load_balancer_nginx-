@@ -1,0 +1,29 @@
+# -d es para que se ejecute en segundo plano, y se pueda la liberar la terminal. 
+
+Docker-compose up -d 
+
+# Para eliminar los contenedores recien creado.
+
+docker-compose down
+
+# Ingresar a los contenedore, por ejemplo MySQL:
+
+docker exec -it ID-contenedor sh
+
+# Ingresar al cliente MySQL.
+
+mysql -u root -p
+(Pedira la password, la cual fue configurada en el "docker-compose.yaml", en este caso es "secret").
+
+# Consulta
+
+show databases;
+(El nombre de la DB es "TODOS", como fue configurado en el "docker-compose.yaml").
+
+ # mysql:
+ #   image: mysql:5.7
+ #   volumes:
+ #     - ./todo-mysql-data:/var/lib/mysql
+ #   environment:
+ #     MYSQL_ROOT_PASSWORD: secret
+ #     MYSQL_DATABASE: todos
